@@ -2,27 +2,21 @@
 #define __HELLOWORLD_SCENE_H__
 
 #include "cocos2d.h"
-#include "Hero.h"
-class MainScene : public cocos2d::Layer
+
+class HelloWorld : public cocos2d::Layer
 {
-private:
-
-	std::map<cocos2d::EventKeyboard::KeyCode,
-		std::chrono::high_resolution_clock::time_point> keys;
-
-
-    Hero *hero = nullptr;
 public:
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
     static cocos2d::Scene* createScene();
+
+    // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
     virtual bool init();
+    
     // a selector callback
     void menuCloseCallback(cocos2d::Ref* pSender);
-    void keyboardHandler(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
-
-
+    
     // implement the "static create()" method manually
-	CREATE_FUNC(MainScene);
+    CREATE_FUNC(HelloWorld);
 };
 
 #endif // __HELLOWORLD_SCENE_H__

@@ -12,6 +12,9 @@ private:
 
 
 public:
+    void up();
+    void back();
+    void jump();
 	Hero();
 };
 

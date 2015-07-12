@@ -4,6 +4,7 @@ USING_NS_CC;
 Hero::Hero()
 {
 	initWithSpriteFrameName("1.png");
+        stopAllActions();
 	this->runAction(moving());
 }
 
@@ -28,6 +29,27 @@ RepeatForever* Hero::moving()
 
 	RepeatForever *repeat = RepeatForever::create(animate);
 	return repeat;
+}
+
+
+void Hero::up(){
+
+    auto jmp = MoveBy::create(0.25,Vec2(10,0));
+    //stopAllActions();
+
+    this->runAction(jmp);
+}
+
+void Hero::back(){
+    auto jmp = MoveBy::create(0.25,Vec2(-10,0));
+   // stopAllActions();
+    this->runAction(jmp);
+}
+
+void Hero::jump(){
+    auto jmp = JumpBy::create(0.25,Vec2(0,0),30,1);
+    this->runAction(jmp);
+
 }
 
 

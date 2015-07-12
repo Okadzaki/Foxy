@@ -1,6 +1,5 @@
 
 #include "MainScene.h"
-#include "Hero.h"
 
 
 USING_NS_CC;
@@ -48,47 +47,35 @@ bool MainScene::init()
     menu->setPosition(Vec2::ZERO);
     this->addChild(menu, 1);
 
-
-	Hero *hero = new Hero();
+     hero = new Hero();
 	hero->setPosition(Point(visibleSize.width / 2, visibleSize.height / 2));
 	this->addChild(hero);
 
-	auto eventListener = EventListenerKeyboard::create();
-	eventListener->onKeyPressed = [] (EventKeyboard::KeyCode keyCode, Event* event){
-		Vec2 loc = event->getCurrentTarget()->getPosition();
-		
-			
-			switch (keyCode){
-			case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
-			case EventKeyboard::KeyCode::KEY_A:
-				event->getCurrentTarget()->setPosition(loc.x-5, loc.y);
-				break;
-			case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
-			case EventKeyboard::KeyCode::KEY_D:
-				event->getCurrentTarget()->setPosition(loc.x+5, loc.y);
-				break;
-			case EventKeyboard::KeyCode::KEY_SPACE:{
-				event->getCurrentTarget()->setPosition(loc.x, loc.y+10);
-				break;
-			}
-			}
-	};
-	this->_eventDispatcher->addEventListenerWithSceneGraphPriority(eventListener, hero);
+    auto keyListener = EventListenerKeyboard::create();
 
+    keyListener->onKeyPressed = CC_CALLBACK_2(MainScene::keyboardHandler,this);
 
-	this->scheduleUpdate();
-
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(keyListener,this);
     return true;
 }
 
 
-void MainScene::keyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event)
-{
+void MainScene::keyboardHandler(EventKeyboard::KeyCode keyCode, Event* event){
 
-}
-void MainScene::keyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event)
-{
-
+   switch(keyCode){
+   case EventKeyboard::KeyCode::KEY_A:{
+       hero->back();
+       break;
+   }
+   case EventKeyboard::KeyCode::KEY_D:{
+       hero->up();
+       break;
+   }
+   case EventKeyboard::KeyCode::KEY_SPACE:{
+       hero->jump();
+       break;
+   }
+   }
 }
 
 
